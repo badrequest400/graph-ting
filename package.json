@@ -15,5 +15,13 @@
   "bugs": {
     "url": "https://github.com/badrequest400/graph-ting/issues"
   },
-  "homepage": "https://github.com/badrequest400/graph-ting#readme"
+  "homepage": "https://github.com/badrequest400/graph-ting#readme",
+  "dependencies": {
+    "neo4j-driver": "^1.1.0",
+    "nuxt": "^0.9.6",
+    "twitter": "^1.7.0"
+  },
+  "devDependencies": {
+    "vue-cli": "^2.8.0"
+  }
 }
