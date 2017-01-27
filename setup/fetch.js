@@ -34,15 +34,21 @@ const getClientFromEnv = () => {
   })
 }
 
-
-
 const client = getClientFromEnv()
 
 const getQuery = (client, keyword) => {
   return new Promise((resolve, reject) => {
-    client.get('search/tweets', { q: keywords }, (err, tweets, res) => {
+    client.get('search/tweets', { q: keyword }, (err, tweets, res) => {
       const { statuses } = tweets
-      resolve(statuses)
+      const tagQuery = tag(keyword)
+      resolve(statuses.map(tagQuery))
+    })
+  })
+}
+const getUser = (client, id, tag) => {
+  return new Promise((resolve, reject) => {
+    client.get('users/lookup', { user_id: id }, (err, users, res) => {
+      resolve(users.map((user) => ({ ...user, tag })))
     })
   })
 }
@@ -62,9 +68,12 @@ const getFavourites = (client, id) => {
   })
 }
 
+const tag = (keyword) => (entity) => ({ ...entity, tag: keyword })
+
 module.exports = {
   client,
   getQuery,
   getFriends,
-  getFavourites
+  getFavourites,
+  getUser
 }
