@@ -7,6 +7,10 @@ const store = new Vuex.Store({
       series: [
         [5, 2, 4, 2, 0]
       ]
+    },
+    options: {
+      width: 300,
+      height: 200
     }
   }
 })

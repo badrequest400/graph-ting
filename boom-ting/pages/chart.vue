@@ -1,10 +1,11 @@
 <template>
   <section class="container">
-    <img src="../assets/img/logo.png" alt="Nuxt.js Logo" class="logo" />
     <h1 class="title">
       Chartist Vue test
     </h1>
-    <div class="ct-chart ct-perfect-fourth"></div>
+    <div class="chart">
+      <div class="ct-chart ct-perfect-fourth"></div>
+    </div>
     <nuxt-link class="button" to="/about">
       About page
     </nuxt-link>
@@ -14,13 +15,18 @@
 <script>
 export default {
   data ({ store: { state } }) {
-    return state['chartData']
+    const { chartData, options } = state
+    return {
+      chartData,
+      options
+    }
   }
 }
 
 if (typeof window !== 'undefined') {
   const Chartist = require('chartist')
-  new Chartist.Line('.ct-chart', window.__NUXT__.data[0])
+  const { chartData, options } = window.__NUXT__.data[0] 
+  new Chartist.Line('.ct-chart', chartData, options)
 }
 
 </script>
@@ -28,5 +34,15 @@ if (typeof window !== 'undefined') {
 <style scoped>
   .title {
     margin: 50px 0;
+  }
+  .ct-perfect-fourth {
+    width: 300px;
+    height: 200px;
+  }
+  .chart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
   }
 </style>

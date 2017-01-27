@@ -10,7 +10,8 @@ module.exports = {
       { hid: 'description', content: "Nuxt.js project" }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: 'favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: 'favicon.ico' },
+      { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/chartist/0.10.1/chartist.min.css' }
     ]
   },
   /*
