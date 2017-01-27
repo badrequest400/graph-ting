@@ -33,3 +33,38 @@ const getClientFromEnv = () => {
     bearer_token: ACCESS_TOKEN
   })
 }
+
+
+
+const client = getClientFromEnv()
+
+const getQuery = (client, keyword) => {
+  return new Promise((resolve, reject) => {
+    client.get('search/tweets', { q: keywords }, (err, tweets, res) => {
+      const { statuses } = tweets
+      resolve(statuses)
+    })
+  })
+}
+const getFriends = (client, id) => {
+  return new Promise((resolve, reject) => {
+    client.get('search/tweets', { user_id: id }, (err, users, res) => {
+      resolve(users)
+    })
+  })
+}
+/// GET LAST 20 FAVOURITED THINGS FOR USER
+const getFavourites = (client, id) => {
+  return new Promise((resolve, reject) => {
+    client.get('favorites/list', { user_id: id }, (err, tweets, res) => {
+      resolve(tweets)
+    })
+  })
+}
+
+module.exports = {
+  client,
+  getQuery,
+  getFriends,
+  getFavourites
+}
