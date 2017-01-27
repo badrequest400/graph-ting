@@ -21,6 +21,8 @@ const runQuery = (query) => {
 
 const tweetSentiments = require('../data/sentiments.json')
 
-tweetSentiments.map(({ text, sentiment: { ... }, tag }) => runQuery(`CREATE (${text}:Tweet {tag: "${tag}", sentiment: { ${...} }})`))
+const tweetQuery = `CREATE (${id}:Tweet {tag: "${tag}", sentiment: { ${...} }, text: '${text}', created_at: '${created_at}' })`
+tweetSentiments.map(({ id, created_at, text, sentiment: { ... }, tag }) =>
+                    runQuery(tweetQuery))
 
 //https://neo4j.com/docs/developer-manual/current/cypher/clauses/match/#_relationships_in_depth
