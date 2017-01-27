@@ -1,5 +1,6 @@
 require('babel-register')
 const { client, getQuery, getFriends, getFavourites, getUser } = require('./fetch.js')
+const { getAllTweetSentiments } = require('./sentiment.js')
 const fs = require('fs')
 const path = require('path')
 
@@ -16,11 +17,16 @@ const getAllUsers = (client, users) => {
 getAllQueries(client, queries)
   .then((results) => {
     const merged = results.reduce((acc, res) => acc.concat(res), [])
-    const write = fs.writeFileSync(path.resolve(__dirname, '../data/queries.json'), JSON.stringify(merged))
-    const users = merged.map((status) => ({tag: status.tag, id: status.user.id_str}))
-    getAllUsers(client, users)
+    const filtered = merged.filter((tweet) => tweet.lang === 'en')
+    getAllTweetSentiments(filtered)
       .then((results) => {
         const merged = results.reduce((acc, res) => acc.concat(res), [])
-        const write = fs.writeFileSync(path.resolve(__dirname, '../data/users.json'), JSON.stringify(merged))
+        const write = fs.writeFileSync(path.resolve(__dirname, '../data/queries.json'), JSON.stringify(merged))
+        const users = merged.map((status) => ({tag: status.tag, id: status.user.id_str}))
+        getAllUsers(client, users)
+          .then((results) => {
+            const merged = results.reduce((acc, res) => acc.concat(res), [])
+            const write = fs.writeFileSync(path.resolve(__dirname, '../data/users.json'), JSON.stringify(merged))
+          })
       })
   })

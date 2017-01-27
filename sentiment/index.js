@@ -1,20 +1,26 @@
 const Language = require('@google-cloud/language');
+const path = require('path')
 
 // Your Google Cloud Platform project ID
 // Instantiates a client
 const languageClient = Language({
   projectId: 'splitguru-154114',
-  keyFilename: './keyfile.json'
+  keyFilename: path.resolve(__dirname, './keyfile.json')
 });
 
-// The text to analyze
-const text = 'Hello, world!';
-
 // Detects the sentiment of the text
-languageClient.detectSentiment(text)
-  .then((results) => {
-    const sentiment = results[0];
+const getSentiment = (text) => {
+  return languageClient.detectSentiment(text)
+}
 
-    console.log(`Text: ${text}`);
-    console.log(`Sentiment: ${sentiment}`);
-  })
+const getTweetSentiment = (tweet) => {
+  return getSentiment(tweet.text)
+    .then((res) => {
+      return { ...tweet, sentiment: res[1],  }
+    })
+}
+
+module.exports = {
+  getSentiment,
+  getTweetSentiment
+}
