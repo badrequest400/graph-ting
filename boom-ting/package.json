@@ -5,6 +5,7 @@
   "author": "Balazs Cseh <balazs.cseh@arcadiagroup.co.uk>",
   "private": true,
   "dependencies": {
+    "chartist": "^0.10.1",
     "nuxt": "latest"
   },
   "scripts": {
