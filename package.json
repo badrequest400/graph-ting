@@ -17,12 +17,12 @@
   },
   "homepage": "https://github.com/badrequest400/graph-ting#readme",
   "dependencies": {
+    "@google-cloud/language": "^0.7.1",
     "babel-core": "^6.22.1",
     "babel-plugin-transform-es2015-destructuring": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.22.0",
     "babel-preset-es2015": "^6.22.0",
     "babel-register": "^6.22.0",
-    "@google-cloud/language": "^0.7.1",
     "dotenv": "^4.0.0",
     "neo4j-driver": "^1.1.0",
     "nuxt": "^0.9.6",
