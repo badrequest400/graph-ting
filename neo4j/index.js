@@ -3,8 +3,7 @@ const neo4j = require('neo4j-driver').v1
 const users = require('../data/users.json')
 const tweets = require('../data/queries.json')
 
-const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "neo4j"))
-const session = driver.session()
+const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "password"))
 
 const queries = [
   'CREATE (topshop:Query {tag: "topshop"})',
@@ -12,33 +11,34 @@ const queries = [
   'CREATE (ivypark:Query {tag: "ivypark"})'
 ]
 
-const runQuery = (query) => {
-  session.run(query).then(() => {
-    session.close()
-    driver.close()
-  })
-}
-
-
 const loadQueries = (queries) => {
-  queries.forEach(runQuery)
+  const session = driver.session()
+  const promises = queries.map((q) => session.run(q))
+  return Promise.all(promises).then(() => session.close())
+    .catch((err) => console.log(err))
 }
 
 const loadTweets = (tweets) => {
-  const tweetQuery = `CREATE (${id}:Tweet {tag: "${tag}", documentScore: "${score}", documentMagnitude: "${magnitude}", text: '${text}', created_at: '${created_at}' })`
-  tweets.forEach((
+  const session = driver.session()
+  const promises = tweets.map((
     {
       id,
       created_at,
       text,
       sentiment: { documentSentiment: { score, magnitude } },
-       tag
-    }) => runQuery(tweetQuery))
+      tag,
+      user: { id: userId }
+    }) => {
+      const tweetQuery = `CREATE (a:Tweet {id: ${id}, userId: ${userId}, tag: "${tag}", documentScore: "${score}", documentMagnitude: "${magnitude}", text: "${text}", created_at: "${created_at}" })`
+      return session.run(tweetQuery)
+    })
+  return Promise.all(promises).then(() => session.close())
+    .catch((err) => console.log(err))
 }
 
 const loadUsers = (users) => {
-  const userQuery = `CREATE (${id}:User {name: "${name}", screenName: "${screen_name}", location: "${location}", followers: "${followers_count}", friends: "${friends_count}"})`
-  users.forEach((
+  const session = driver.session()
+  const promises = users.map((
     {
       id,
       name,
@@ -46,31 +46,62 @@ const loadUsers = (users) => {
       location,
       followers_count,
       friends_count
-    }) => runQuery(userQuery))
+    }) => {
+      const userQuery = `CREATE (a:User {id: ${id}, name: "${name}", screenName: "${screen_name}", location: "${location}", followers: "${followers_count}", friends: "${friends_count}"})`
+      return session.run(userQuery)
+    })
+  return Promise.all(promises).then(() => session.close())
+    .catch((err) => console.log(err))
 }
 
 const tweetToQuery = (tweets) => {
-  const relation = `CREATE (${id})-[:KEYWORD_OF { created_at: ${created_at} }]->(${tag})`
-  tweets.forEach(({ id, created_at, tag }) => runQuery(relation))
+  const session = driver.session()
+  const promises = tweets.map(({ id, created_at, tag }) => {
+    const relation = `
+    MATCH (a:Query), (b:Tweet)
+    WHERE a.tag = '${tag}' AND b.id = '${id}'
+    CREATE (b)-[:KEYWORD_OF { created_at: "${created_at}" }]->(a)
+    `
+    return session.run(relation)
+  })
+  return Promise.all(promises).then(() => session.close())
+    .catch((err) => console.log(err))
 }
 
 const userToQuery = (users) => {
-  const relation = `CREATE (${id})-[:TWEETED_WITH_KEYWORD]->(${tag})`
-  users.forEach(({ id, tag }) => runQuery(relation))
+  const session = driver.session()
+  const promises = users.map(({ id, tag }) => {
+    const relation = `
+    MATCH (a:User), (b:Query)
+    WHERE a.id = ${id} AND b.tag = '${tag}'
+    CREATE (a)-[:TWEETED_WITH_KEYWORD]->(b)
+    `
+    return session.run(relation)
+  })
+  return Promise.all(promises).then(() => session.close())
+    .catch((err) => console.log(err))
 }
 
 const userToTweet = (users, tweets) => {
-  const relation = `CREATE (${id})-[:TWEETED { created_at: ${created_at} }]->(${tweetId})`
-  users.forEach(({ id }) => {
-    const relevantTweets = tweets.filter((tweet) => id === tweet.user.id)
-    relevantTweets.forEach(({ created_at, id: tweetId }) => runQuery(relation))
+  const session = driver.session()
+  const promises = users.map(({ id }) => {
+    const relation = `
+    MATCH (a:User), (b:Tweet)
+    WHERE a.id = ${id} AND b.userId = ${id}
+    CREATE (a)-[:TWEETED]->(b)
+    `
+    return session.run(relation)
   })
+  return Promise.all(promises).then(() => session.close())
+    .catch((err) => console.log(err))
 }
 
 
-loadQueries(queries)
-loadTweets(tweets)
-loadUsers(users)
-tweetToQuery(tweets)
-userToQuery(users)
-userToTweet(users, tweets)
+// Promise.all([
+  loadQueries(queries)
+  loadTweets(tweets)
+  loadUsers(users)
+  tweetToQuery(tweets)
+  userToQuery(users)
+  userToTweet(users, tweets)
+// ]).then(() => driver.close())
