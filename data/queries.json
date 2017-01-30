@@ -214,7 +214,7 @@
     "created_at": "Fri Jan 27 16:10:46 +0000 2017",
     "id": 825013187456032800,
     "id_str": "825013187456032768",
-    "text": "Housemate went to notebook decorating thing at TopShop themed \n\"What do you want from 2017\"\nLady leading the sessio… https://t.co/19b2Ig2dSw",
+    "text": "Housemate went to notebook decorating thing at TopShop themed 'What do you want from 2017' Lady leading the sessio… https://t.co/19b2Ig2dSw",
     "truncated": true,
     "entities": {
       "hashtags": [],
@@ -324,7 +324,7 @@
       "sentences": [
         {
           "text": {
-            "content": "Housemate went to notebook decorating thing at TopShop themed \n\"What do you want from 2017\"\nLady leading the sessio… https://t.co/19b2Ig2dSw",
+            "content": "Housemate went to notebook decorating thing at TopShop themed 'What do you want from 2017' Lady leading the sessio… https://t.co/19b2Ig2dSw",
             "beginOffset": -1
           },
           "sentiment": {
@@ -339,7 +339,7 @@
     "created_at": "Fri Jan 27 16:10:12 +0000 2017",
     "id": 825013045898285000,
     "id_str": "825013045898285057",
-    "text": "Mirela Rupic \\ Here Comes The Topshop Bride https://t.co/elv5hlQ1fS https://t.co/IsSprJr2JK",
+    "text": "Mirela Rupic \\\\ Here Comes The Topshop Bride https://t.co/elv5hlQ1fS https://t.co/IsSprJr2JK",
     "truncated": false,
     "entities": {
       "hashtags": [],
@@ -527,7 +527,7 @@
       "sentences": [
         {
           "text": {
-            "content": "Mirela Rupic \\ Here Comes The Topshop Bride https://t.co/elv5hlQ1fS https://t.co/IsSprJr2JK",
+            "content": "Mirela Rupic \\\\ Here Comes The Topshop Bride https://t.co/elv5hlQ1fS https://t.co/IsSprJr2JK",
             "beginOffset": -1
           },
           "sentiment": {
@@ -4036,7 +4036,7 @@
     "retweeted": false,
     "possibly_sensitive": false,
     "lang": "en",
-    "tag": "ivy park",
+    "tag": "ivypark",
     "sentiment": {
       "documentSentiment": {
         "magnitude": 0.699999988079071,
@@ -4494,7 +4494,7 @@
     "retweeted": false,
     "possibly_sensitive": false,
     "lang": "en",
-    "tag": "ivy park",
+    "tag": "ivypark",
     "sentiment": {
       "documentSentiment": {
         "magnitude": 0.699999988079071,
@@ -4976,7 +4976,7 @@
     "retweeted": false,
     "possibly_sensitive": false,
     "lang": "en",
-    "tag": "ivy park",
+    "tag": "ivypark",
     "sentiment": {
       "documentSentiment": {
         "magnitude": 0.6000000238418579,
@@ -5439,7 +5439,7 @@
     "retweeted": false,
     "possibly_sensitive": false,
     "lang": "en",
-    "tag": "ivy park",
+    "tag": "ivypark",
     "sentiment": {
       "documentSentiment": {
         "magnitude": 0.6000000238418579,
@@ -5771,7 +5771,7 @@
     "retweeted": false,
     "possibly_sensitive": false,
     "lang": "en",
-    "tag": "ivy park",
+    "tag": "ivypark",
     "sentiment": {
       "documentSentiment": {
         "magnitude": 0,
@@ -5977,7 +5977,7 @@
     "favorited": false,
     "retweeted": false,
     "lang": "en",
-    "tag": "ivy park",
+    "tag": "ivypark",
     "sentiment": {
       "documentSentiment": {
         "magnitude": 0.5,
@@ -6449,7 +6449,7 @@
     "retweeted": false,
     "possibly_sensitive": false,
     "lang": "en",
-    "tag": "ivy park",
+    "tag": "ivypark",
     "sentiment": {
       "documentSentiment": {
         "magnitude": 0.6000000238418579,
@@ -6678,7 +6678,7 @@
     "favorited": false,
     "retweeted": false,
     "lang": "en",
-    "tag": "ivy park",
+    "tag": "ivypark",
     "sentiment": {
       "documentSentiment": {
         "magnitude": 0.5,
@@ -7139,7 +7139,7 @@
     "retweeted": false,
     "possibly_sensitive": false,
     "lang": "en",
-    "tag": "ivy park",
+    "tag": "ivypark",
     "sentiment": {
       "documentSentiment": {
         "magnitude": 0.4000000059604645,
@@ -7594,7 +7594,7 @@
     "retweeted": false,
     "possibly_sensitive": false,
     "lang": "en",
-    "tag": "ivy park",
+    "tag": "ivypark",
     "sentiment": {
       "documentSentiment": {
         "magnitude": 0.699999988079071,
